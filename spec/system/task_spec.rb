@@ -1,5 +1,10 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  let!(:task) { FactoryBot.create(:task, title: 'task') }
+  before do
+    # 「一覧画面に遷移した場合」や「タスクが作成日時の降順に並んでいる場合」など、contextが実行されるタイミングで、before内のコードが実行される
+    visit tasks_path
+  end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
@@ -35,6 +40,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         # わざと間違った結果を期待するテストを記載する
         # expect(page).to have_content 'task_failure'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
+      end
+    end
+    context 'タスクが作成日時の降順に並んでいる場合' do
+      it '新しいタスクが一番上に表示される' do
+        task = FactoryBot.create(:task, title: 'task')
+        task2 = FactoryBot.create(:task, title: 'task2')
+        task3 = FactoryBot.create(:task, title: 'task3')
+        visit tasks_path
+        task_list = all('.task_title')
+        expect(task_list[0]).to have_content 'task3'
       end
     end
   end
