@@ -21,6 +21,10 @@
     <%= form.label :終了期限 %>
     <%= form.date_select :limit %>
   </div>
+  <div class="task_title">
+    <%= form.label :ステータス %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
+  </div>
   <%= form.submit "登録する" %>
 <% end %>
 <%= link_to "一覧画面にもどる", tasks_path %>
