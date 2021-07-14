@@ -44,12 +44,24 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        task = FactoryBot.create(:task, title: 'task')
-        task2 = FactoryBot.create(:task, title: 'task2')
-        task3 = FactoryBot.create(:task, title: 'task3')
+        task = FactoryBot.create(:task)
+        task2 = FactoryBot.create(:task2)
+        task3 = FactoryBot.create(:task3)
         visit tasks_path
         task_list = all('.task_title')
-        expect(task_list[0]).to have_content 'task3'
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル３'
+      end
+    end
+    context '終了期限でソートするを押した場合' do
+      it '終了期限が遅いタスクが一番上に表示される' do
+        task = FactoryBot.create(:task)
+        task2 = FactoryBot.create(:task2)
+        task3 = FactoryBot.create(:task3)
+        visit tasks_path
+        click_on '終了期限でソートする'
+        task_list = all('.task_title')
+        # binding.irb
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
       end
     end
   end
