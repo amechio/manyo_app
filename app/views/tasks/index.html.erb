@@ -1,10 +1,19 @@
 <h1>一覧画面</h1>
 <p><%= notice %></p>
+
+<p>検索</p>
+<%= form_with(method: :get, local: true) do |form| %>
+  <%= text_field_tag :title %>
+  <%= form.select :status, Task.statuses.keys, {prompt: "全て"} %>
+  <%= submit_tag '検索', :name => nil %>
+<% end %>
+
 <table>
   <tr>
     <th>タスク名</th>
     <th>タスク詳細</th>
     <th>終了期限</th>
+    <th>ステータス</th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
@@ -17,6 +26,8 @@
   </tr>
 <% end %>
 </table>
+
+
 
 <%= link_to "終了期限でソートする", tasks_path(sort_limit: "true") %>
 <%= link_to '新規作成', new_task_path %>

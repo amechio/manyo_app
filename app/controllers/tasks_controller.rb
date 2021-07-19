@@ -1,8 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all.order(created_at: :desc)
-    @tasks = Task.all.order(limit: :desc) if params[:sort_limit]
+    if params[:sort_limit]
+      @tasks = Task.all.order(limit: :desc)
+    elsif params[:title].present? && params[:status].present?
+      @tasks = Task.all.search(params[:title])
+      @tasks = Task.where(status: params[:status])
+    elsif params[:title].present?
+      @tasks = Task.where(title: params[:title])
+      # @tasks = Task.all.search(params[:title])
+    elsif params[:status].present?
+      @tasks = Task.where(status: params[:status])
+    else
+      @tasks = Task.all.order(created_at: :desc)
+    end
+
+    # @tasks = Task.all.order(created_at: :desc)
+    # @tasks = Task.all.order(limit: :desc) if params[:sort_limit]
+    # @tasks = Task.all.search(params[:title]) if params[:title].present?
+    # # @tasks = Task.all.search(params[:status]) if params[:status].present?
+    # @tasks = Task.where(status: params[:status]) if params[:status].present?
   end
 
   def new
