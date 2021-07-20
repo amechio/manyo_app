@@ -23,6 +23,10 @@
   </div>
   <div class="task_title">
     <%= form.label :ステータス %>
+    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: "選択して下さい"} %>
+  </div>
+  <div class="task_title">
+    <%= form.label :優先順位 %>
     <%= form.select :status, Task.statuses.keys.to_a, {prompt: "選択して下さい"} %>
   </div>
   <%= form.submit "登録する" %>
