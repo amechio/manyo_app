@@ -34,18 +34,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content '未着手'
       end
     end
-    # context 'タスクを新規登録するとき' do
-    #   it 'ステータスも登録ができる' do
-    #     visit new_task_path
-    #     fill_in 'task[title]', with: 'タスク名を記入'
-    #     fill_in 'task[content]', with: 'タスク詳細を記入'
-    #     fill_in 'task[status]', with: '未着手'
-    #     click_on '登録する'
-    #     expect(page).to have_content 'タスク名を記入'
-    #     expect(page).to have_content 'タスク詳細を記入'
-    #     expect(page).to have_content '未着手'
-    #   end
-    # end
   end
 
   describe '一覧表示機能' do
@@ -121,14 +109,13 @@ RSpec.describe 'タスク管理機能', type: :system do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
         # プルダウンを選択する「select」について調べてみること
-      #  find("#task_status_id").find("option[value='0']").select_option
         select "未着手", from: 'status'
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[2].text).to have_content 'task'
-        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
         expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
+        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[2].text).to have_content 'task'
       end
     end
     context 'タイトルのあいまい検索とステータス検索をした場合' do
@@ -139,6 +126,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         task_list = all('.task_title')
         expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+      end
+    end
+    context '優先順位検索をした場合' do
+      it "優先順位に完全一致するタスクが絞り込まれる" do
+        select "中", from: 'priority'
+        click_on '検索'
+        sleep 0.5
+        task_list = all('.task_title')
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[1].text).to have_content 'task'
       end
     end
   end
