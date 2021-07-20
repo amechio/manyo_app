@@ -15,6 +15,6 @@ FactoryBot.define do
     title { 'Factoryで作ったデフォルトのタイトル３' }
     content { 'Factoryで作ったデフォルトのコンテント３' }
     limit { '2021-08-01' }
-    status { '未着手' }
+    status { '着手中' }
   end
 end

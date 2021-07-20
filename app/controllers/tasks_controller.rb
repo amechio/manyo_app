@@ -1,19 +1,26 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    if params[:sort_limit]
-      @tasks = Task.all.order(limit: :desc)
-    elsif params[:title].present? && params[:status].present?
-      @tasks = Task.all.search(params[:title])
-      @tasks = Task.where(status: params[:status])
-    elsif params[:title].present?
-      @tasks = Task.where(title: params[:title])
-      # @tasks = Task.all.search(params[:title])
-    elsif params[:status].present?
-      @tasks = Task.where(status: params[:status])
-    else
-      @tasks = Task.all.order(created_at: :desc)
-    end
+    # if params[:sort_limit]
+    #   @tasks = Task.all.order(limit: :desc)
+    # elsif params[:title].present? && params[:status].present?
+    #   @tasks = Task.all.search(params[:title])
+    #   @tasks = Task.where(status: params[:status])
+    # elsif params[:title].present?
+    #   @tasks = Task.where(title: params[:title])
+    #   # @tasks = Task.all.search(params[:title])
+    # elsif params[:status].present?
+    #   @tasks = Task.where(status: params[:status])
+    # else
+    #   @tasks = Task.all.order(created_at: :desc)
+    # end
+
+    @tasks = Task.all
+    @tasks = @tasks.order(created_at: :desc) if params[:sort_limit].nil?
+    @tasks = @tasks.order(limit: :asc) if params[:sort_limit]
+    @tasks = @tasks.title_search(params[:title]) if params[:title].present?
+    @tasks = @tasks.status_search(params[:status]) if params[:status].present?
+
 
     # @tasks = Task.all.order(created_at: :desc)
     # @tasks = Task.all.order(limit: :desc) if params[:sort_limit]

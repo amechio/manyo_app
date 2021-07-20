@@ -2,9 +2,9 @@
 <p><%= notice %></p>
 
 <p>検索</p>
-<%= form_with(method: :get, local: true) do |form| %>
-  <%= text_field_tag :title %>
-  <%= form.select :status, Task.statuses.keys, {prompt: "全て"} %>
+<%= form_with(method: :get, local: true) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.select :status, Task.statuses.keys, prompt: "全て" %>
   <%= submit_tag '検索', :name => nil %>
 <% end %>
 

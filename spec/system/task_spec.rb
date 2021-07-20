@@ -69,23 +69,25 @@ RSpec.describe 'タスク管理機能', type: :system do
         task3 = FactoryBot.create(:task3)
         visit tasks_path
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル３'
-        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
-        expect(task_list[2].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        tasks = Task.all.order(created_at: :desc)
+        tasks.each_with_index do |task, i|
+          expect(task_list[i].text).to have_content task.title
+        end
       end
     end
     context '終了期限でソートするを押した場合' do
-      it '終了期限が遅いタスクが一番上に表示される' do
+      it '終了期限が迫っているタスクが一番上に表示される' do
         task = FactoryBot.create(:task)
         task2 = FactoryBot.create(:task2)
         task3 = FactoryBot.create(:task3)
         visit tasks_path
         click_on '終了期限でソートする'
+        sleep 1
         task_list = all('.task_title')
-        # binding.irb
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
-        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
-        expect(task_list[2].text).to have_content 'Factoryで作ったデフォルトのタイトル３'
+        tasks = Task.all.order(limit: :asc)
+        tasks.each_with_index do |task, i|
+          expect(task_list[i].text).to have_content task.title
+        end
       end
     end
   end
@@ -99,32 +101,44 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '検索機能' do
     before do
       # 必要に応じて、テストデータの内容を変更して構わない
-      FactoryBot.create(:task, title: "task")
-      FactoryBot.create(:task2, title: "sample")
+      task = FactoryBot.create(:task)
+      task2 = FactoryBot.create(:task2)
+      task3 = FactoryBot.create(:task3)
     end
     context 'タイトルであいまい検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
         visit tasks_path
         # タスクの検索欄に検索ワードを入力する (例: task)
-        fill_in 'task[search]', with: 'task'
+        fill_in 'title', with: 'タイトル１'
         # 検索ボタンを押す
         click_on '検索'
-        expect(page).to have_content 'task'
+        sleep 0.5
+        task_list = all('.task_title')
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
       end
     end
     context 'ステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
         # プルダウンを選択する「select」について調べてみること
-        find("#task_status_id").find("option[value='1']").select_option
+      #  find("#task_status_id").find("option[value='0']").select_option
+        select "未着手", from: 'status'
         click_on '検索'
-        expect(page).to have_content '未着手'
+        sleep 0.5
+        task_list = all('.task_title')
+        expect(task_list[2].text).to have_content 'task'
+        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
       end
     end
     context 'タイトルのあいまい検索とステータス検索をした場合' do
-      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
-
+        fill_in 'title', with: 'タイトル１'
+        select "未着手", from: 'status'
+        click_on '検索'
+        task_list = all('.task_title')
+        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
       end
     end
   end
