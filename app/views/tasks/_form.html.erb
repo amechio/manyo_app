@@ -9,26 +9,31 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_title">
-    <%= form.label :タスク名 %>
-    <%= form.text_field :title %>
-  </div>
-  <div class="task_title">
-    <%= form.label :タスク詳細 %>
-    <%= form.text_field :content %>
-  </div>
-  <div class="task_title">
-    <%= form.label :終了期限 %>
-    <%= form.date_select :limit %>
-  </div>
-  <div class="task_title">
-    <%= form.label :ステータス %>
-    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: "選択して下さい"} %>
-  </div>
-  <div class="task_title">
-    <%= form.label :優先順位 %>
-    <%= form.select :status, Task.statuses.keys.to_a, {prompt: "選択して下さい"} %>
-  </div>
-  <%= form.submit "登録する" %>
+
+  <table>
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :タスク名 %></dt>
+      <dd class="form_input"><%= form.text_field :title %></dd>
+    </dl>
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :タスク詳細 %></dt>
+      <dd class="form_input"><%= form.text_field :content %></dd>
+    </dl>
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :終了期限 %></dt>
+      <dd class="form_input"><%= form.date_select :limit %></dd>
+    </dl>
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :ステータス %></dt>
+      <dd class="form_input"><%= form.select :status, Task.statuses.keys.to_a %></dd>
+    </dl>
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :優先順位 %></dt>
+      <dd class="form_input"><%= form.select :priority, Task.priorities.keys.to_a %></dd>
+    </dl>
+  </table>
+
+  <%= form.submit "登録する", class: "btn" %>
+  <%= link_to "もどる", tasks_path, class: "back" %>
+
 <% end %>
-<%= link_to "一覧画面にもどる", tasks_path %>

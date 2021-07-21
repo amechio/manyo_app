@@ -1,6 +1,24 @@
 <h1>詳細画面</h1>
-<p>タスク: <%= @task.title %></p>
-<p>内容: <%= @task.content %></p>
-<p>終了期限: <%= @task.limit %></p>
-<p>ステータス: <%= @task.status %></p>
-<p>優先順位: <%= @task.priority %></p>
+<table>
+  <dl class="task_title">
+    <dt class="show_label">タスク</dt>
+    <dd class="show_input"><%= @task.title %></dd>
+  </dl>
+  <dl class="task_title">
+    <dt class="show_label">内容</dt>
+    <dd class="show_input"><%= @task.content %></dd>
+  </dl>
+  <dl class="task_title">
+    <dt class="show_label">終了期限</dt>
+    <dd class="show_input"><%= @task.limit %></dd>
+  </dl>
+  <dl class="task_title">
+    <dt class="show_label">ステータス</dt>
+    <dd class="show_input"><%= @task.status %></dd>
+  </dl>
+  <dl class="task_title">
+    <dt class="show_label">優先順位</dt>
+    <dd class="show_input"><%= @task.priority %></dd>
+  </dl>
+</table>
+<%= link_to "もどる", tasks_path, class: "back" %>
