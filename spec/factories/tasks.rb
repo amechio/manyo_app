@@ -6,6 +6,7 @@ FactoryBot.define do
     status { '未着手' }
     priority { '中' }
   end
+  
   factory :task2, class: Task do
     title { 'Factoryで作ったデフォルトのタイトル２' }
     content { 'Factoryで作ったデフォルトのコンテント２' }
@@ -13,6 +14,7 @@ FactoryBot.define do
     status { '未着手' }
     priority { '低' }
   end
+
   factory :task3, class: Task do
     title { 'Factoryで作ったデフォルトのタイトル３' }
     content { 'Factoryで作ったデフォルトのコンテント３' }

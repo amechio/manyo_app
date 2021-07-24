@@ -1,12 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  # let!(:task) { FactoryBot.create(:task) }
-  # let!(:task2) { FactoryBot.create(:task2) }
-  # let!(:task3) { FactoryBot.create(:task3) }
   before do
-    task = FactoryBot.create(:task)
-    task2 = FactoryBot.create(:task2)
-    task3 = FactoryBot.create(:task3)
+    @task = FactoryBot.create(:task)
+    @task2 = FactoryBot.create(:task2)
+    @task3 = FactoryBot.create(:task3)
     # 「一覧画面に遷移した場合」や「タスクが作成日時の降順に並んでいる場合」など、contextが実行されるタイミングで、before内のコードが実行される
     visit tasks_path
   end
@@ -57,30 +54,21 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        # task = FactoryBot.create(:task)
-        # task2 = FactoryBot.create(:task2)
-        # task3 = FactoryBot.create(:task3)
-        # visit tasks_path
+        #binding.irb
         task_list = all('.task_title')
-        tasks = Task.all.order(created_at: :desc)
-        tasks.each_with_index do |task, i|
-          expect(task_list[i].text).to have_content task.title
-        end
+        expect(task_list[0].text).to have_content @task3.title
+        expect(task_list[1].text).to have_content @task2.title
+        expect(task_list[2].text).to have_content @task.title
       end
     end
     context '終了期限でソートした場合' do
       it '終了期限が迫っているタスクが一番上に表示される' do
-        # task = FactoryBot.create(:task)
-        # task2 = FactoryBot.create(:task2)
-        # task3 = FactoryBot.create(:task3)
-        # visit tasks_path
         click_on '終了期限'
         sleep 1
         task_list = all('.task_title')
-        tasks = Task.all.order(limit: :asc)
-        tasks.each_with_index do |task, i|
-          expect(task_list[i].text).to have_content task.title
-        end
+        expect(task_list[0].text).to have_content @task3.title
+        expect(task_list[1].text).to have_content @task.title
+        expect(task_list[2].text).to have_content @task2.title
       end
     end
   end
@@ -92,15 +80,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '検索機能' do
-    # before do
-    #   # 必要に応じて、テストデータの内容を変更して構わない
-    #   task = FactoryBot.create(:task)
-    #   task2 = FactoryBot.create(:task2)
-    #   task3 = FactoryBot.create(:task3)
-    # end
     context 'タイトルであいまい検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
-        # visit tasks_path
         # タスクの検索欄に検索ワードを入力する (例: task)
         fill_in 'title', with: 'タイトル１'
         # 検索ボタンを押す
@@ -120,7 +101,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list = all('.task_title')
         expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
         expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
-        # expect(task_list[2].text).to have_content 'task'
       end
     end
     context 'タイトルのあいまい検索とステータス検索をした場合' do
@@ -140,7 +120,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         sleep 0.5
         task_list = all('.task_title')
         expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
-        # expect(task_list[1].text).to have_content 'task'
       end
     end
   end
