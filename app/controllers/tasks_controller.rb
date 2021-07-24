@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.page(params[:page]).per(10)
+    @tasks = @tasks.order(created_at: :desc) if params[:sort_limit].nil?
+    @tasks = @tasks.order(limit: :asc) if params[:sort_limit]
+    @tasks = @tasks.title_search(params[:title]) if params[:title].present?
+    @tasks = @tasks.status_search(params[:status]) if params[:status].present?
+    @tasks = @tasks.priority_search(params[:priority]) if params[:priority].present?
   end
 
   def new
@@ -43,7 +48,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :limit, :status, :priority)
   end
 
   def set_task
