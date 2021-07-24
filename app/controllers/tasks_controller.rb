@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all.page(params[:page]).per(10)
+    @tasks = current_user.tasks
+    @tasks = @tasks.page(params[:page]).per(10)
     @tasks = @tasks.order(created_at: :desc) if params[:sort_limit].nil?
     @tasks = @tasks.order(limit: :asc) if params[:sort_limit]
     @tasks = @tasks.title_search(params[:title]) if params[:title].present?
@@ -14,7 +15,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    # @task = Task.new(task_params)
+    # @blog.user_id = current_user.id
     if params[:back]
       render :new
     else
