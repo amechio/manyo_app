@@ -56,9 +56,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '新しいタスクが一番上に表示される' do
         #binding.irb
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content @task3.title
-        expect(task_list[1].text).to have_content @task2.title
-        expect(task_list[2].text).to have_content @task.title
+        expect(task_list[0].text).to eq @task3.title
+        expect(task_list[1].text).to eq @task2.title
+        expect(task_list[2].text).to eq @task.title
       end
     end
     context '終了期限でソートした場合' do
@@ -66,9 +66,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '終了期限'
         sleep 1
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content @task3.title
-        expect(task_list[1].text).to have_content @task.title
-        expect(task_list[2].text).to have_content @task2.title
+        expect(task_list[0].text).to eq @task3.title
+        expect(task_list[1].text).to eq @task.title
+        expect(task_list[2].text).to eq @task2.title
       end
     end
   end
@@ -88,7 +88,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
     context 'ステータス検索をした場合' do
@@ -99,8 +99,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
-        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task2.title
+        expect(task_list[1].text).to eq @task.title
       end
     end
     context 'タイトルのあいまい検索とステータス検索をした場合' do
@@ -110,7 +110,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         select "未着手", from: 'status'
         click_on '検索'
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
     context '優先順位検索をした場合' do
@@ -119,7 +119,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
   end
