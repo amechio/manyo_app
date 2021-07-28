@@ -1,5 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user
+
   def index
     @users = User.all.page(params[:page])
   end
@@ -45,5 +47,11 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def admin_user
+    if current_user.admin != true
+      redirect_to new_session_path, notice: "権限がありません！"
+    end
   end
 end
