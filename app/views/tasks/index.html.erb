@@ -17,6 +17,7 @@
 
 <table>
   <tr class="column">
+    <th class="title">ユーザ名</th>
     <th class="title">タスク名</th>
     <th class="content">タスク詳細</th>
     <th class="limit"><%= link_to "終了期限", tasks_path(sort_limit: "true") %></th>
@@ -25,6 +26,7 @@
   </tr>
   <% @tasks.each do |task| %>
     <tr class="data">
+      <td><%= @user.name %></td>
       <td class="task_title"><%= task.title %></td>
       <td><%= task.content %></td>
       <td><%= task.limit %></td>

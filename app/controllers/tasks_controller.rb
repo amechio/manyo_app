@@ -1,11 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    # @user = User.find(params[:id])  #
-    # @tasks = @user.tasks.page(params[:page]).per(10)
+    @user = current_user
     @tasks = current_user.tasks  #
     @tasks = @tasks.page(params[:page]).per(10)
-    # @tasks = Task.all.page(params[:page]).per(10)  #全部
     @tasks = @tasks.order(created_at: :desc) if params[:sort_limit].nil?
     @tasks = @tasks.order(limit: :asc) if params[:sort_limit]
     @tasks = @tasks.title_search(params[:title]) if params[:title].present?
