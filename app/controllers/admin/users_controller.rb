@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :admin_user
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.all.page(params[:page])
@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
   def set_user
