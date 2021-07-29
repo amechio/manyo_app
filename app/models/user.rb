@@ -15,3 +15,5 @@ class User < ApplicationRecord
     throw(:abort) if self.admin == true && User.where(admin: true).count <= 1
   end
 end
+
+# errors.add(:base, "管理ユーザーがいなくなります！")

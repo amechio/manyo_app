@@ -3,7 +3,8 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all.page(params[:page])
+    # @users = User.all.page(params[:page])
+    @users = User.select(:id, :name).page(params[:page])
   end
 
   def new
@@ -30,13 +31,16 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_users_path, notice: "編集しました！"
     else
-      render :edit
+      render :edit, notice:"管理ユーザーがいなくなります！"
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice:"削除しました！"
+    if @user.destroy
+      redirect_to admin_users_path, notice:"削除しました！"
+    else
+      redirect_to admin_users_path, notice:"管理ユーザーがいなくなります！"
+    end
   end
 
   private
