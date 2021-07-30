@@ -9,7 +9,8 @@
     </ul>
   </div>
 <% end %>
-<%= form_with model: [:admin, @user], local: true do |f| %>
+<%#= form_with model: [:admin, @user], local: true do |f| %>
+<%= form_with(model: @user, local: true, url: admin_users_path) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :email %>

@@ -14,6 +14,7 @@ RSpec.describe 'ユーザ機能', type: :system do
         expect(page).to have_content 'email@mail.com'
       end
     end
+
     context 'ユーザがログインせずタスク一覧画面に飛ぼうとしたとき' do
       it 'ログイン画面に遷移' do
         visit tasks_path
@@ -32,6 +33,7 @@ RSpec.describe 'ユーザ機能', type: :system do
       fill_in 'session[password]', with: 'factory1'
       click_on 'Log in'
     end
+
     context 'ログインしたとき' do
       it 'ようこそと表示される' do
         sleep 1
@@ -66,6 +68,7 @@ RSpec.describe 'ユーザ機能', type: :system do
       click_on 'Log in'
       visit admin_users_path
     end
+
     context '管理ユーザが登録されているとき' do
       it '管理ユーザは管理画面にアクセスできる' do
         expect(page).to have_content '管理者画面index'
@@ -81,19 +84,26 @@ RSpec.describe 'ユーザ機能', type: :system do
       it '管理ユーザはユーザの新規登録ができる' do
         click_on 'ユーザの新規登録'
         expect(page).to have_content '管理者画面new'
+        # binding.irb
       end
       it '管理ユーザはユーザの詳細画面にアクセスできる' do
-        page.all('#show')[3].click  #user3の詳細ボタン
+        all('#show')[2].click  #user3の詳細ボタン
         sleep 1
         expect(page).to have_content 'Factoryで作ったデフォルトの名前３のページ'
       end
       it '管理ユーザはユーザの編集画面からユーザを編集できる' do
-        page.all('#edit')[3].click  #user3の編集ボタン
+        all('#edit')[2].click  #user3の編集ボタン
         expect(page).to have_content '管理者画面edit'
+        # fill_in 'user[name]', with: 'bunbun'
+        # fill_in 'user[password]', with: '11111111'
+        # fill_in 'user[password_confirmation]', with: '11111111'
+        # binding.irb
+        # click_on '更新'
+        # binding.irb
       end
       it '管理ユーザはユーザの削除をできる' do
         page.accept_confirm do
-          page.all('#delete')[3].click  #user3の削除ボタン
+          all('#delete')[2].click  #user3の削除ボタン
         end
         expect(page).to have_content '削除しました！'
       end
