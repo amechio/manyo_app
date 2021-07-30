@@ -19,9 +19,7 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
   <%= f.label :admin %>
-  <%= f.check_box :admin, {}, true, false %><br/><br/>
-  <%= f.submit %><br/><br/>
-
-  <%= f.submit "update_user"%>
+  <%= f.check_box :admin, {}, true, false %>
+  <%= f.submit %>
   <%= link_to "もどる", admin_users_path, class: "back" %>
 <% end %>

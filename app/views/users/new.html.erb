@@ -9,18 +9,29 @@
     </ul>
   </div>
 <% end %>
+
 <%= form_with(model: @user, local: true) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.label :admin %>
-  <%= f.check_box :admin, {}, true, false %>
-
-  <%= f.submit "Create my account" %>
+  <table>
+    <dl class="user_column">
+      <dt class="form_label"><%= f.label :name %></dt>
+      <dd class="form_input"><%= f.text_field :name %></dd>
+    </dl>
+    <dl class="user_column">
+      <dt class="form_label"><%= f.label :email %></dt>
+      <dd class="form_input"><%= f.email_field :email %></dd>
+    </dl>
+    <dl class="user_column">
+      <dt class="form_label"><%= f.label :password %></dt>
+      <dd class="form_input"><%= f.password_field :password %></dd>
+    </dl>
+    <dl class="user_column">
+      <dt class="form_label"><%= f.label :password_confirmation %></dt>
+      <dd class="form_input"><%= f.password_field :password_confirmation %></dd>
+    </dl>
+    <dl class="user_column">
+      <dt class="form_label"><%= f.label :admin %></dt>
+      <dd class="form_input"><%= f.check_box :admin, {}, true, false %></dd>
+    </dl>
+  </table>
+  <%= f.submit "新規登録", class: "btn" %>
 <% end %>

@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   private
   def admin_update
-    throw(:abort) if self.admin == false && User.where(admin: true).count <= 1
+    throw(:abort) if (self.admin == false && User.where(admin: true).size == 1) && self == User.find_by(admin: true)
   end
   def admin_destroy
     throw(:abort) if self.admin == true && User.where(admin: true).count <= 1

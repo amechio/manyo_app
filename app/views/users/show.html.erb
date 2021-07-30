@@ -1,7 +1,7 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス: <%= @user.email %></p>
-<%= link_to "プロフィール編集", edit_user_path(id: @user.id), class: "back" %>
 <%= link_to "タスク一覧へ", tasks_path, class: "btn" %>
+<%= link_to "プロフィール編集", edit_user_path(id: @user.id), class: "back" %>
 
 <p><%= current_user.tasks.count %>個のタスクが登録されています</p>
 <table>
