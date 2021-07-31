@@ -9,6 +9,10 @@
     <dd class="search_input"><%= f.select :status, Task.statuses.keys, prompt: "全て" %></dd>
     <dt class="search_label">優先順位</dt>
     <dd class="search_input"><%= f.select :priority, Task.priorities.keys, prompt: "全て" %></dd>
+    <dt class="search_label">ラベル</dt>
+    <dd class="search_input">
+      <%= f.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+    </dd>
     <dt class="search_label"><%= submit_tag '検索', :name => nil %></dt>
   <% end %>
 </div>
@@ -21,6 +25,7 @@
     <th class="limit"><%= link_to "終了期限", tasks_path(sort_limit: "true") %></th>
     <th class="status">ステータス</th>
     <th class="priority">優先順位</th>
+    <th class="label">ラベル</th>
   </tr>
   <% @tasks.each do |task| %>
     <tr class="data">
@@ -30,6 +35,11 @@
       <td><%= task.limit %></td>
       <td><%= task.status %></td>
       <td><%= task.priority %></td>
+      <td>
+        <% task.labels.each do |label| %>
+        <%= label.name %>
+        <% end %>
+      </td>
       <td>
         <%= link_to '詳細', task_path(task.id), class: "option_btn" %>
         <%= link_to '編集', edit_task_path(task.id), class: "option_btn" %>
