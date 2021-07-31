@@ -1,0 +1,26 @@
+<h1><%= @user.name %>のページ</h1>
+<p>メールアドレス: <%= @user.email %></p>
+<%= link_to "タスク一覧へ", tasks_path, class: "btn" %>
+<%= link_to "プロフィール編集", edit_user_path(id: @user.id), class: "back" %>
+
+<p><%= current_user.tasks.count %>個のタスクが登録されています</p>
+<table>
+  <tr class="column">
+    <th class="title">ユーザ名</th>
+    <th class="title">タスク名</th>
+    <th class="content">タスク詳細</th>
+    <th class="limit"><%= link_to "終了期限", tasks_path(sort_limit: "true") %></th>
+    <th class="status">ステータス</th>
+    <th class="priority">優先順位</th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr class="data">
+      <td><%= @user.name %></td>
+      <td class="task_title"><%= task.title %></td>
+      <td><%= task.content %></td>
+      <td><%= task.limit %></td>
+      <td><%= task.status %></td>
+      <td><%= task.priority %></td>
+    </tr>
+  <% end %>
+</table>

@@ -15,4 +15,6 @@ class Task < ApplicationRecord
   scope :priority_search, -> (priority) {
     where(priority: priority)
   }
+
+  belongs_to :user
 end

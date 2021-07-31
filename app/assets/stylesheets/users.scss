@@ -1,0 +1,15 @@
+header {
+  background-color: #FFC72D;
+}
+.header_btn {
+  text-decoration: none;
+  // color: #4FD0FF;
+  text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF,
+               -1px 1px 0 #FFF, 1px -1px 0 #FFF,
+               0px 1px 0 #FFF,  0-1px 0 #FFF,
+               -1px 0 0 #FFF, 1px 0 0 #FFF;
+}
+
+.user_chunk {
+  margin: 20px;
+}

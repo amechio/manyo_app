@@ -1,9 +1,22 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  # binding.irb
   before do
+    # binding.irb
+    # @user = FactoryBot.create(:user)
+    # visit new_session_path
+    # fill_in 'session[email]', with: 'factory1@mail.com'
+    # fill_in 'session[password]', with: 'factory1'
+    # click_on 'ログイン'
+    # sleep 1
+    # visit new_task_path
     @task = FactoryBot.create(:task)
     @task2 = FactoryBot.create(:task2)
     @task3 = FactoryBot.create(:task3)
+    visit new_session_path
+    fill_in 'session[email]', with: 'factory1@mail.com'
+    fill_in 'session[password]', with: 'factory1'
+    click_on 'ログイン'
     # 「一覧画面に遷移した場合」や「タスクが作成日時の降順に並んでいる場合」など、contextが実行されるタイミングで、before内のコードが実行される
     visit tasks_path
   end
@@ -18,6 +31,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         #「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
         # ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'task[title]', with: 'タスク名を記入'
+        # fill_in 'task_title', with: 'タスク名を記入'
         # ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'task[content]', with: 'タスク詳細を記入'
         # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
@@ -42,11 +56,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         # テストで使用するためのタスクを作成
-        task = FactoryBot.create(:task, title: 'task')
+        # task = FactoryBot.create(:task, title: 'task')
         # タスク一覧ページに遷移
         visit tasks_path
         # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列がhave_contentされているか（含まれているか）ということをexpectする（確認・期待する）
-        expect(page).to have_content 'task'
+        expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
         # わざと間違った結果を期待するテストを記載する
         # expect(page).to have_content 'task_failure'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
@@ -56,9 +70,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '新しいタスクが一番上に表示される' do
         #binding.irb
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content @task3.title
-        expect(task_list[1].text).to have_content @task2.title
-        expect(task_list[2].text).to have_content @task.title
+        expect(task_list[0].text).to eq @task3.title
+        expect(task_list[1].text).to eq @task2.title
+        expect(task_list[2].text).to eq @task.title
       end
     end
     context '終了期限でソートした場合' do
@@ -66,9 +80,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '終了期限'
         sleep 1
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content @task3.title
-        expect(task_list[1].text).to have_content @task.title
-        expect(task_list[2].text).to have_content @task2.title
+        expect(task_list[0].text).to eq @task3.title
+        expect(task_list[1].text).to eq @task.title
+        expect(task_list[2].text).to eq @task2.title
       end
     end
   end
@@ -88,7 +102,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
     context 'ステータス検索をした場合' do
@@ -99,8 +113,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル２'
-        expect(task_list[1].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task2.title
+        expect(task_list[1].text).to eq @task.title
       end
     end
     context 'タイトルのあいまい検索とステータス検索をした場合' do
@@ -110,7 +124,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         select "未着手", from: 'status'
         click_on '検索'
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
     context '優先順位検索をした場合' do
@@ -119,7 +133,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '検索'
         sleep 0.5
         task_list = all('.task_title')
-        expect(task_list[0].text).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(task_list[0].text).to eq @task.title
       end
     end
   end
