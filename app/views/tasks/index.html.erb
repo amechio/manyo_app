@@ -11,7 +11,7 @@
     <dd class="search_input"><%= f.select :priority, Task.priorities.keys, prompt: "全て" %></dd>
     <dt class="search_label">ラベル</dt>
     <dd class="search_input">
-      <%= f.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+      <%= f.select("label_id", Label.pluck(:name, :id), prompt: "全て") %>
     </dd>
     <dt class="search_label"><%= submit_tag '検索', :name => nil %></dt>
   <% end %>

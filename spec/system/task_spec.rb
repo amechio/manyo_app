@@ -2,14 +2,6 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   # binding.irb
   before do
-    # binding.irb
-    # @user = FactoryBot.create(:user)
-    # visit new_session_path
-    # fill_in 'session[email]', with: 'factory1@mail.com'
-    # fill_in 'session[password]', with: 'factory1'
-    # click_on 'ログイン'
-    # sleep 1
-    # visit new_task_path
     @task = FactoryBot.create(:task)
     @task2 = FactoryBot.create(:task2)
     @task3 = FactoryBot.create(:task3)
