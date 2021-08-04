@@ -45,8 +45,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_2'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル3'
         click_on '登録する'
 
         expect(page).to have_content '一覧画面'
@@ -70,8 +70,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_2'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル3'
         click_on '登録する'
 
         # binding.irb
@@ -93,8 +93,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_2'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル3'
         click_on '登録する'
 
         visit new_task_path
@@ -104,8 +104,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_1'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル2'
         click_on '登録する'
 
         visit tasks_path
@@ -129,8 +129,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_2'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル3'
         click_on '登録する'
 
         visit new_task_path
@@ -140,8 +140,8 @@ RSpec.describe 'ラベル機能', type: :system do
         select '8', from: 'task[limit(2i)]'
         select '1', from: 'task[limit(3i)]'
         select '未着手', from: 'task[status]'
-        check 'task_label_ids_0'
-        check 'task_label_ids_1'
+        check 'Factoryで作ったデフォルトのラベル1'
+        check 'Factoryで作ったデフォルトのラベル3'
         click_on '登録する'
 
         visit tasks_path

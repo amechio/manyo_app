@@ -35,10 +35,7 @@
     <dl class="task_title">
       <dt class="form_label"><%= form.label :ラベル %></dt>
       <dd class="form_input">
-        <% Label.all.each do |label| %>
-          <%= form.check_box :label_ids, { multiple: true, chrcked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
-          <%= label.name %>
-        <% end %>
+        <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
       </dd>
     </dl>
   </table>

@@ -52,7 +52,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         # タスク一覧ページに遷移
         visit tasks_path
         # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列がhave_contentされているか（含まれているか）ということをexpectする（確認・期待する）
-        expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
+        expect(page).to have_content 'Factoryで作ったデフォルトのタイトル1'
         # わざと間違った結果を期待するテストを記載する
         # expect(page).to have_content 'task_failure'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
@@ -89,7 +89,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルであいまい検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
         # タスクの検索欄に検索ワードを入力する (例: task)
-        fill_in 'title', with: 'タイトル１'
+        fill_in 'title', with: 'タイトル1'
         # 検索ボタンを押す
         click_on '検索'
         sleep 0.5
@@ -112,10 +112,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
-        fill_in 'title', with: 'タイトル１'
+        fill_in 'title', with: 'タイトル1'
         select "未着手", from: 'status'
         click_on '検索'
         task_list = all('.task_title')
+        # binding.irb
         expect(task_list[0].text).to eq @task.title
       end
     end
