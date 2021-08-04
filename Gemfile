@@ -20,6 +20,8 @@ gem 'kaminari'
 
 gem 'bcrypt'
 
+
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
@@ -41,6 +43,7 @@ group :test do
   gem 'capybara', '>= 2.15'
 
   gem 'webdrivers'
+  gem 'database_cleaner'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

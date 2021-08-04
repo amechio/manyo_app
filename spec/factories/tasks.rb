@@ -1,18 +1,16 @@
 FactoryBot.define do
   factory :task do
-    association :user
-    title { 'Factoryで作ったデフォルトのタイトル１' }
-    content { 'Factoryで作ったデフォルトのコンテント１' }
+    title { 'Factoryで作ったデフォルトのタイトル1' }
+    content { 'Factoryで作ったデフォルトのコンテント1' }
     limit { '2021-08-02' }
     status { '未着手' }
     priority { '中' }
-    # user_id { User.first.id }
+    association :user
   end
 
   factory :task2, class: Task do
-    # association :user
-    title { 'Factoryで作ったデフォルトのタイトル２' }
-    content { 'Factoryで作ったデフォルトのコンテント２' }
+    title { 'Factoryで作ったデフォルトのタイトル2' }
+    content { 'Factoryで作ったデフォルトのコンテント2' }
     limit { '2021-08-03' }
     status { '未着手' }
     priority { '低' }
@@ -20,9 +18,8 @@ FactoryBot.define do
   end
 
   factory :task3, class: Task do
-    # association :user
-    title { 'Factoryで作ったデフォルトのタイトル３' }
-    content { 'Factoryで作ったデフォルトのコンテント３' }
+    title { 'Factoryで作ったデフォルトのタイトル3' }
+    content { 'Factoryで作ったデフォルトのコンテント3' }
     limit { '2021-08-01' }
     status { '着手中' }
     priority { '低' }

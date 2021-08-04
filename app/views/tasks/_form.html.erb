@@ -31,6 +31,13 @@
       <dt class="form_label"><%= form.label :優先順位 %></dt>
       <dd class="form_input"><%= form.select :priority, Task.priorities.keys.to_a %></dd>
     </dl>
+
+    <dl class="task_title">
+      <dt class="form_label"><%= form.label :ラベル %></dt>
+      <dd class="form_input">
+        <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+      </dd>
+    </dl>
   </table>
 
   <%= form.submit "登録する", class: "btn" %>
